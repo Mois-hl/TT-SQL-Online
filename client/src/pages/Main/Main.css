@@ -1,0 +1,54 @@
+.layout-main-page{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 20px;
+  gap: 10px;
+}
+
+.textarea-query{
+  width: 100%;
+  min-height: 250px;
+  background: #f6f6f6;
+  color: #000;
+  border-radius: 8px;
+  cursor: text;
+  padding: 8px;
+  resize: none;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.button-query {
+  padding: 5px 25px;
+  border: none;
+  background-color: #4d6cf7;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+table{
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: #f6f6f6;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+  color: #fff; 
+  background-color: #5a99d1; 
+}
+
+tr:nth-child(even){
+  background-color: #00000011;
+}
+
+tr:hover{
+  color: #5a99d1;
+}
