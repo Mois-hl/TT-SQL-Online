@@ -5,7 +5,6 @@ export const executeQuery = async (req, res) => {
         const {data} = req.query;
         const [rows, fields] = await pool.query(data);
         console.log(rows);
-        console.log(fields);
         res.json(rows);
       } catch (error) {
         return res.status(500).json({ message: error.message })

@@ -1,20 +1,23 @@
 import { Route, Routes } from 'react-router-dom'
 import NotFound from './pages/NotFound.jsx'
 import Main from './pages/Main/Main.jsx'
-import NavBar from './components/NavBar/NavBar.jsx'
-import { TaskContextProvider } from './context/TaskContext.jsx'
+import { ContextProvider } from './context/Context.jsx'
 import './App.css'
+import Login from './pages/Login/Login.jsx'
+import QueryList from './pages/QueryList/QueryList.jsx'
 
 function App() {
 
   return (
-    <TaskContextProvider>
+    <ContextProvider>
       {/* <NavBar /> */}
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/list' element={<QueryList />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </TaskContextProvider>
+    </ContextProvider>
   )
 }
 

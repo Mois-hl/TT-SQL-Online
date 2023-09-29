@@ -1,0 +1,41 @@
+.container-querylist{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -140px 0 0 -440px;
+    box-shadow: rgba(0, 0, 0, 0.25) 4.95px 4.95px 6.6px;
+    z-index: 10;
+    padding: 20px;
+    gap: 10px;
+}
+
+.button-close-querylist{
+    align-self: flex-end;
+    background: #00000000;
+    padding: 5px 10px;
+    color: #000;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-close-querylist:hover{
+    background: #00000011;
+}
+
+.iconos-table-queryList{
+    height: 30px;
+    width: 30px;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+.iconos-table-queryList:hover{
+    background-color: #00000044;
+    border-radius: 6px;
+}
