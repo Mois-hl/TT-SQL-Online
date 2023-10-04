@@ -11,10 +11,10 @@ import { IoMdSend } from 'react-icons/io';
 import FormQuery from '../../components/FormQuery/FormQuery';
 import { useMainContext } from '../../context/Context';
 
-export default function Main () {
-  
+export default function Main() {
+
   const [query, setQuery] = useState('SELECT id, nombre, edad FROM cliente')
-  
+
   const [rows, setRows] = useState([])
 
   const [rowsInit, setRowsInit] = useState([])
@@ -29,18 +29,18 @@ export default function Main () {
 
   // const id = crypto.randomUUID()
 
-  useEffect(()=>{
+  useEffect(() => {
     setShowNav(false)
     const init = async () => {
       const response = await initializeApp();
       console.log(response);
-      if(Array.isArray(response.data))
-        if(!response.data.length == 0)
+      if (Array.isArray(response.data))
+        if (!response.data.length == 0)
           setRowsInit(response.data);
     }
     init();
   }, [])
-  
+
   const handleChange = (event) => {
     setQuery(event.target.value)
   }
@@ -52,34 +52,34 @@ export default function Main () {
     setMessage({});
     const response = await executeQuery(query);
     console.log(response);
-    if(Array.isArray(response.data)){
-      if(!response.data.length == 0){
+    if (Array.isArray(response.data)) {
+      if (!response.data.length == 0) {
         setRows(response.data)
-      }else{
-        setMessage({data: 'No hay resultados para la consulta', error: false})
+      } else {
+        setMessage({ data: 'No hay resultados para la consulta', error: false })
       }
-    }else{
-      if(response.message){
-        setMessage({data: response.message, error: true})
-      }else if(response.data.affectedRows){
-        if(response.data.affectedRows == 1){
-          setMessage({data: `${response.data.affectedRows} fila fue afectada`, error: false})
-        }else{
-          setMessage({data: `${response.data.affectedRows} filas fueron afectadas`, error: false})
+    } else {
+      if (response.message) {
+        setMessage({ data: response.message, error: true })
+      } else if (response.data.affectedRows >= 0) {
+        if (response.data.affectedRows == 1) {
+          setMessage({ data: `${response.data.affectedRows} fila fue afectada`, error: false })
+        } else {
+          setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
         }
       }
     }
     setLoading(false);
   }
 
-  return(
+  return (
     <>
       <header>
         <RxHamburgerMenu onClick={() => setShowNav(!showNav)} style={{ cursor: 'pointer' }} />
       </header>
       <NavBar show={showNav} />
-      { showSaveQuery && <FormQuery textAreaQuery={query} /> }
-      <div className={ showSaveQuery ? 'layout-main-page' : 'layout-main-page active'} onClick={() => setShowNav(false)}>
+      {showSaveQuery && <FormQuery textAreaQuery={query} />}
+      <div className={showSaveQuery ? 'layout-main-page' : 'layout-main-page active'} onClick={() => setShowNav(false)}>
         <div>
           <form className='form-query' onSubmit={handleSubmit}>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '10px', color: '#fff' }}>

@@ -88,6 +88,7 @@ export default function QueryList() {
 
   return (
     <>
+    <div className={showUpdateQuery ? 'brightness-querylist' : ''}>
       <header>
         <RxHamburgerMenu onClick={() => setShowNav(!showNav)} style={{ cursor: 'pointer' }} />
       </header>
@@ -95,8 +96,9 @@ export default function QueryList() {
         <NavBar show={showNav} />
       </div>
       { loading && <Loading /> }
-      { showUpdateQuery && <UpdateQuery item={item} /> }
       {rows && renderTable()}
+    </div>
+      { showUpdateQuery && <UpdateQuery item={item} /> }
     </>
   )
 }

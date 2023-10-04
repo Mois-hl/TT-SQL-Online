@@ -39,3 +39,7 @@
     background-color: #00000044;
     border-radius: 6px;
 }
+
+.brightness-querylist{
+    filter: brightness(70%);
+}

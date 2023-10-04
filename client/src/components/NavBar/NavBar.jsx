@@ -45,7 +45,7 @@ export default function NavBar({ show }) {
           <a onClick={() => setShowSaveQuery(true)}><span>Guardar sentencia</span></a>
         </li>
         <li>
-        <Link to='/list' onClick={() => setShowNav(false)}><span>Lista sentencias</span></Link>
+          <Link to='/list' onClick={() => setShowNav(false)}><span>Lista sentencias</span></Link>
         </li>
         <li>
           <Link to='/'><span>Acerca de</span></Link>
