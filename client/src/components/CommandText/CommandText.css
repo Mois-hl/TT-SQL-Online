@@ -1,0 +1,15 @@
+.container-commandtext{
+    background: #d6d6d6;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container-commandtext code{
+    background: #252525;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #d6d6d6;
+}

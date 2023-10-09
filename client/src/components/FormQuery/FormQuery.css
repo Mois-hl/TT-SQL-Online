@@ -6,7 +6,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -140px 0 0 -210px;
+    transform: translate(-50%, -50%);
     box-shadow: rgba(0, 0, 0, 0.25) 4.95px 4.95px 6.6px;
     z-index: 10;
     padding: 20px;

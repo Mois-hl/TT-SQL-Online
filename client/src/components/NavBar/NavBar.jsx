@@ -20,20 +20,6 @@ export default function NavBar({ show }) {
     })
   }
 
-  // const handleGetQueryList = () => {
-  //   setShowNav(false);
-  //   setShowSaveQuery(false);
-  //   getQueryList()
-  //   .then(snapshot => {
-  //     const list = snapshot.docs.map((doc) => ({
-  //       ...doc.data()
-  //     }))
-  //     console.log(list);
-  //     setShowQueryList(true)
-  //     setQueryList(list);
-  //   })
-  // }
-
   return (
     <div className={ show ? 'sidebar active' : 'sidebar'}>
       <img className='image-logo-sidebar' src={logo} alt='Logo' />
@@ -46,6 +32,12 @@ export default function NavBar({ show }) {
         </li>
         <li>
           <Link to='/list' onClick={() => setShowNav(false)}><span>Lista sentencias</span></Link>
+        </li>
+        <li>
+          <Link to='/guide' onClick={() => setShowNav(false)}><span>Guias de comandos</span></Link>
+        </li>
+        <li>
+          <Link to='/course' onClick={() => setShowNav(false)}><span>Cursos</span></Link>
         </li>
         <li>
           <Link to='/'><span>Acerca de</span></Link>

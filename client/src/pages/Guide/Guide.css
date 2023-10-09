@@ -1,0 +1,29 @@
+.container-guide{
+    padding: 30px;
+}
+
+.lista-guide{
+    width: fit-content;
+    overflow-y: scroll;
+    max-height: 70vh;
+    padding: 0 10px 0 0;
+}
+
+.lista-guide li{
+    background: #d6d6d6;
+    border-radius: 10px;
+    padding: 15px 50px;
+    margin-bottom: 10px;
+    transition: background 200ms linear;
+    font-weight: bold;
+}
+
+.lista-guide li:last-child {
+    margin-bottom: 0px;
+}
+
+.lista-guide li:hover{
+    /* opacity: 0.5; */
+    background: rgba(97, 154, 240, 0.8);
+    cursor: pointer;
+}

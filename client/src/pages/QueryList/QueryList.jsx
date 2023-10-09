@@ -29,9 +29,9 @@ export default function QueryList() {
         }))
         console.log(list);
         setRows(list);
+        setLoading(false)
       })
     .catch(err => console.log(err))
-    setLoading(false)
   }, [])
 
   const handleDeleteDoc = (id) => {
@@ -41,9 +41,9 @@ export default function QueryList() {
       console.log('success');
       const rowsFilter = rows.filter((item) => item.id != id)
       setRows(rowsFilter);
+      setLoading(false)
     })
     .catch(err => console.log(err))
-    setLoading(false)
   }
 
   const handleUpdate = (item) => {
@@ -76,7 +76,10 @@ export default function QueryList() {
                   {
                     <td>{item['query']}</td>
                   }
-                  <td><FaRegTrashCan className='iconos-table-queryList' style={{ color: '#f54848' }} onClick={() => handleDeleteDoc(item.id)} /><FaPencil onClick={() => handleUpdate(item)} className='iconos-table-queryList' style={{ color: '#09f', marginLeft: '10px'}} /></td>
+                  <td style={{ padding: '0 10px' }}>
+                    <FaRegTrashCan className='iconos-table-queryList' style={{ color: '#f54848' }} onClick={() => handleDeleteDoc(item.id)} />
+                    <FaPencil onClick={() => handleUpdate(item)} className='iconos-table-queryList' style={{ color: '#09f', marginLeft: '10px'}} />
+                  </td>
                 </tr>
               ))
             }
@@ -95,7 +98,9 @@ export default function QueryList() {
       <div>
         <NavBar show={showNav} />
       </div>
-      { loading && <Loading /> }
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} >
+        { loading && <Loading /> }
+      </div>
       {rows && renderTable()}
     </div>
       { showUpdateQuery && <UpdateQuery item={item} /> }

@@ -1,0 +1,57 @@
+[
+    {
+        "command": "SELECT",
+        "text": "Se utiliza cuando quieres leer (o seleccionar) tus datos.",
+        "example": "SELECT * FROM cliente;"
+    },
+    {
+        "command": "FROM",
+        "text": "Se utiliza para escoger la o las tablas a las que vamos a hacer referencia, lo más común es usar FROM en conjunto los comandos SELECT o DELETE.",
+        "example": "SELECT * FROM cliente;"
+    },
+    {
+        "command": "UPDATE",
+        "text": "Se utiliza cuando quieres cambiar (o actualizar) datos existentes.",
+        "example": "UPDATE cliente SET nombre = 'Carlos' WHERE id = 1;"
+    },
+    {
+        "command": "CREATE TABLE",
+        "text": "Se utiliza para crear una nueva tabla.",
+        "example": "CREATE TABLE cliente ( id INT PRIMARY KEY, nombre VARCHAR(20) );"
+    },
+    {
+        "command": "CREATE DATABASE",
+        "text": "Se utiliza para crear una nueva base de datos vacía.",
+        "example": "CREATE DATABASE mydb; <br /> USE mydb;"
+    },
+    {
+        "command": "INSERT INTO",
+        "text": "Se utiliza cuando quieres añadir (o insertar) nuevos datos.",
+        "example": "INSERT INTO cliente VALUES ( 1, 'Juan' );"
+    },
+    {
+        "command": "DELETE",
+        "text": "Se utiliza cuando quieres eliminar (o borrar) datos existentes.",
+        "example": "DELETE FROM cliente WHERE id = 1;"
+    },
+    {
+        "command": "DROP",
+        "text": "Se utiliza para eliminar una base de datos o una tabla.",
+        "example": "DROP DATABASE mydb; <br /> DROP TABLE cliente;"
+    },
+    {
+        "command": "DROP",
+        "text": "Se utiliza para eliminar una base de datos o una tabla.",
+        "example": "DROP DATABASE mydb; <br /> DROP TABLE cliente;"
+    },
+    {
+        "command": "TRUNCATE TABLE",
+        "text": "Se utiliza cuando quieres vaciar (o borrar) todos los datos de una tabla.",
+        "example": "TRUNCATE TABLE cliente;"
+    },
+    {
+        "command": "ALTER TABLE",
+        "text": "Se utiliza para modificar una tabla ya existente.",
+        "example": "ALTER TABLE cliente ADD nombre_columna tipo_de_dato;"
+    }
+]
