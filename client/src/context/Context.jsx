@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from 'react-toastify';
+import { useAuth } from '../firebase/client.js'
 
 export const MainContext = createContext();
 
@@ -22,8 +24,17 @@ export const ContextProvider = ({ children }) => {
 
   const[showUpdateQuery, setShowUpdateQuery] = useState()
 
+  const[arrayActivities, setArrayActivities] = useState()
+
+  const notifyUpdateForm = () => toast.success("Sentencia actualizada correctamente!");
+
+  const notifyCreateForm = () => toast.success("Sentencia guardada correctamente!");
+
+  const currentUser = useAuth()
+
   return <MainContext.Provider value={{ showSaveQuery, setShowSaveQuery, showQueryList, setShowQueryList,
-    queryList, setQueryList, showNav, setShowNav, showUpdateQuery, setShowUpdateQuery }}>
+    queryList, setQueryList, showNav, setShowNav, showUpdateQuery, setShowUpdateQuery, 
+    arrayActivities, setArrayActivities, notifyUpdateForm, notifyCreateForm, currentUser }}>
     {children}
     </MainContext.Provider>
 }

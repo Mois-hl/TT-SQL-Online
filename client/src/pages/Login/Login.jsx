@@ -2,12 +2,15 @@ import { useRef, useState, useEffect } from 'react';
 import './Login.css'
 import logo from '../../assets/logo.png';
 import { useNavigate } from "react-router-dom";
-import { useAuth, logOut, loginWithEmail, singUp } from '../../firebase/client';
+import { logOut, loginWithEmail, singUp } from '../../firebase/client';
 import Loading from '../../components/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useMainContext } from '../../context/Context';
 
 export default function Login() {
 
-  const currentUser = useAuth();
+  const { currentUser } = useMainContext()
   const [loading, setLoading] = useState(false);
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -36,18 +39,8 @@ export default function Login() {
       .catch(err => {
         console.log(err.code);
         console.log(err.message);
-        setLoading(false)
-      })
-  }
-  // con promises // sing up con github
-  async function handleLoginWithGithub() {
-    setLoading(true)
-    loginWithGitHub()
-      .then(() => {
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
+        if(err.code === 'auth/invalid-login-credentials')
+          notify()
         setLoading(false)
       })
   }
@@ -70,8 +63,11 @@ export default function Login() {
     setLoading(false)
   }, [currentUser])
 
+  const notify = () => toast.error("Contraseña incorrecta!");
+
   return (
     <div className="layout-login">
+      <ToastContainer theme="colored" autoClose={2000} />
       <div className='main-container-login'>
         <img className='image-logo-login' src={logo} alt='Logo' />
         <p style={{ color: '#0e293d', fontSize: '16px' }}>SQL online</p>
@@ -101,20 +97,6 @@ export default function Login() {
         {
           loading && <Loading />
         }
-        {/* {
-                !currentUser &&
-                <Button onClick={handleLoginWithGithub}>
-                    <GitHub fill='#fff' width={12} height={12} />Login with GitHub
-                </Button>
-                } */}
-        {/* {
-                currentUser &&
-                <Avatar
-                    alt='foto usuario'
-                    src={currentUser.photoURL}
-                    text={currentUser.email}
-                />
-                } */}
       </div>
     </div>
   );

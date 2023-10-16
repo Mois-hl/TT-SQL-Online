@@ -1,0 +1,8 @@
+[
+    {
+        "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
+        "response": "SELECT id, nombre, edad FROM cliente;",
+        "resolve": false,
+        "next": true
+    }
+]

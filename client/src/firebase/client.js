@@ -60,42 +60,25 @@ export const loginWithGitHub = () => {
   // }
 }
 // an insert to database
-export const saveQuery = ({ title, description, query }) => {
-  return addDoc(collection(db, 'queryList'), {
+export const saveQuery = ({ title, description, query }, user) => {
+  return addDoc(collection(db, `queryList-${user}`), {
     title,
     description,
     query
   })
 }
 
-//Custom Hook for getDocs from the database
-// export function useQueryList () {
-//   const [queryList, setQueryList] = useState([])
-
-//   useEffect(() => {
-//     getDocs(collection(db, 'queryList'))
-//       .then(snapshot => {
-//         const lists = snapshot.docs.map((doc) => ({
-//           ...doc.data()
-//         }))
-//         setQueryList(lists)
-//       })
-//   }, [])
-
-//   return queryList
-// }
-
 //getDocs from the database
-export function getQueryList () {
-  return getDocs(collection(db, 'queryList'));
+export function getQueryList (user) {
+  return getDocs(collection(db, `queryList-${user}`));
 }
 
 //delete Doc from the database
-export function deleteDocById (id) {
-  return deleteDoc(doc(db, 'queryList', id))
+export function deleteDocById (id, user) {
+  return deleteDoc(doc(db, `queryList-${user}`, id))
 }
 
 //update Doc from the database
-export function updateDocById (id, item) {
-  return updateDoc(doc(db, 'queryList', id), item)
+export function updateDocById (id, item, user) {
+  return updateDoc(doc(db, `queryList-${user}`, id), item)
 }

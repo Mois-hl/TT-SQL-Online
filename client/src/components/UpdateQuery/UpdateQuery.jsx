@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import './UpdateQuery.css';
 import { useMainContext } from '../../context/Context';
 import { updateDocById } from '../../firebase/client';
@@ -11,11 +11,15 @@ export default function UpdateQuery({ item }) {
 	const [description, setDescription] = useState(item.description);
 	const [query, setQuery] = useState(item.query);
 
+	const { notifyUpdateForm } = useMainContext()
+
+	const { currentUser } = useMainContext()
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		updateDocById(item.id, {title, description, query})
+		updateDocById(item.id, {title, description, query}, currentUser.email)
 		.then(() => {
-			console.log('success');
+			notifyUpdateForm()
 		})
 		.catch(err => console.log(err))
 		setShowUpdateQuery(false)

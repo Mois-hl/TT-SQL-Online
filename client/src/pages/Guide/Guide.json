@@ -40,11 +40,6 @@
         "example": "DROP DATABASE mydb; <br /> DROP TABLE cliente;"
     },
     {
-        "command": "DROP",
-        "text": "Se utiliza para eliminar una base de datos o una tabla.",
-        "example": "DROP DATABASE mydb; <br /> DROP TABLE cliente;"
-    },
-    {
         "command": "TRUNCATE TABLE",
         "text": "Se utiliza cuando quieres vaciar (o borrar) todos los datos de una tabla.",
         "example": "TRUNCATE TABLE cliente;"

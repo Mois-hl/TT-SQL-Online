@@ -10,6 +10,8 @@ import { FaRegTrashCan } from 'react-icons/fa6';
 import { IoMdSend } from 'react-icons/io';
 import FormQuery from '../../components/FormQuery/FormQuery';
 import { useMainContext } from '../../context/Context';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Main() {
 
@@ -33,7 +35,7 @@ export default function Main() {
     setShowNav(false)
     const init = async () => {
       const response = await initializeApp();
-      console.log(response);
+      // console.log(response);
       if (Array.isArray(response.data))
         if (!response.data.length == 0)
           setRowsInit(response.data);
@@ -51,10 +53,11 @@ export default function Main() {
     setRows([]);
     setMessage({});
     const response = await executeQuery(query);
-    console.log(response);
+    // console.log(response);
     if (Array.isArray(response.data)) {
       if (!response.data.length == 0) {
         setRows(response.data)
+        setRowsInit([...rowsInit, response.data])
       } else {
         setMessage({ data: 'No hay resultados para la consulta', error: false })
       }
@@ -78,6 +81,7 @@ export default function Main() {
         <RxHamburgerMenu onClick={() => setShowNav(!showNav)} style={{ cursor: 'pointer' }} />
       </header>
       <NavBar show={showNav} />
+      <ToastContainer theme="colored" autoClose={2000} />
       {showSaveQuery && <FormQuery textAreaQuery={query} />}
       <div className={showSaveQuery ? 'layout-main-page' : 'layout-main-page active'} onClick={() => setShowNav(false)}>
         <div>

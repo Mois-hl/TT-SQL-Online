@@ -1,36 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import './FormQuery.css';
 import { useMainContext } from '../../context/Context';
 import { saveQuery } from '../../firebase/client';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormQuery({ textAreaQuery }) {
 
-	const { showSaveQuery, setShowSaveQuery } = useMainContext();
-
-	const [disabled, setDisabled] = useState(false)
+	const { showSaveQuery, setShowSaveQuery, notifyCreateForm } = useMainContext();
 
 	const title = useRef();
 	const description = useRef();
 	const query = useRef();
 
+	const { currentUser } = useMainContext()
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		setDisabled(true)
 		saveQuery({
 			title: title.current.value,
 			description: description.current.value,
 			query: query.current.value
-		})
+		}, currentUser.email)
 		.then(()=>{
-			notify()
-			setDisabled(true)
+			notifyCreateForm()
 		})
 		.catch(err => {
 			console.log(err)
-			setDisabled(true)
 		})
+		setShowSaveQuery(false)
 	}
 
 	useEffect(() => {
@@ -38,11 +35,8 @@ export default function FormQuery({ textAreaQuery }) {
 		description.current.value = '';
 	}, [showSaveQuery])
 
-	const notify = () => toast.success("Sentencia guardada correctamente!");
-
 	return (
 		<div className='container-dialogbox'>
-			<ToastContainer theme="colored" autoClose={2000} />
 			<h4>Guardar sentencia</h4>
 			<form className='inputs-dialogbox' onSubmit={handleSubmit}>
 				<input ref={title} placeholder='título' />
@@ -50,7 +44,7 @@ export default function FormQuery({ textAreaQuery }) {
 				<textarea ref={query} placeholder='sentencia' value={textAreaQuery} readOnly></textarea>
 				<div className='buttons-dialogbox'>
 					<button className='button-close-dialogbox' type='button' onClick={() => setShowSaveQuery(false)} >Cerrar</button>
-					<button className='button-save-dialogbox' type='submit' disabled={disabled} >Guardar</button>
+					<button className='button-save-dialogbox' type='submit' >Guardar</button>
 				</div>
 			</form>
 		</div>
