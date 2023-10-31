@@ -1,26 +1,56 @@
 [
     {
-        "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
-        "response": "SELECT nombre FROM cliente;",
-        "resolve": false,
-        "next": true
+        "lesson": "Lección 1 - Consultas con el comando SELECT",
+        "select": true,
+        "activities": [
+            {
+                "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
+                "response": "7500315373372",
+                "resolve": false,
+                "next": true
+            },
+            {
+                "activity": "Selecciona el <span class='course-section-marktext' >nombre</span> y la <span class='course-section-marktext' >edad</span> de la tabla cliente",
+                "response": "12117011966057",
+                "resolve": false,
+                "next": false
+            },
+            {
+                "activity": "Selecciona el <span class='course-section-marktext' >idOrden</span> y el <span class='course-section-marktext' >monto</span> de la tabla orden",
+                "response": "16097629300031",
+                "resolve": false,
+                "next": false
+            },
+            {
+                "activity": "Selecciona <span class='course-section-marktext' >todos los campos</span> de la tabla orden",
+                "response": "12545238414713",
+                "resolve": false,
+                "next": false
+            }
+        ]
     },
     {
-        "activity": "Selecciona el <span class='course-section-marktext' >nombre</span> y la <span class='course-section-marktext' >edad</span> de la tabla cliente",
-        "response": "SELECT nombre, edad FROM cliente;",
-        "resolve": false,
-        "next": false
+        "lesson": "Lección 2 - Consultas con el comando WHERE",
+        "select": false,
+        "activities": [
+            {
+                "activity": "Selecciona el registro con el <span class='course-section-marktext' >idCliente = 2</span> de la tabla cliente.",
+                "response": "SELECT * FROM cliente WHERE idCliente = 2",
+                "resolve": false,
+                "next": true
+            }
+        ]
     },
     {
-        "activity": "Selecciona el <span class='course-section-marktext' >id</span> y el <span class='course-section-marktext' >monto</span> de la tabla orden",
-        "response": "SELECT id, monto FROM orden;",
-        "resolve": false,
-        "next": false
-    },
-    {
-        "activity": "Selecciona <span class='course-section-marktext' >todos los campos</span> de la tabla cliente",
-        "response": "SELECT * FROM cliente; SELECT id, nombre, apellidos, edad, ciudad FROM cliente;",
-        "resolve": false,
-        "next": false
+        "lesson": "Lección 3 - Consultas con el comando JOIN",
+        "select": false,
+        "activities": [
+            {
+                "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
+                "response": "SELECT idCliente, nombre, edad FROM cliente",
+                "resolve": false,
+                "next": true
+            }
+        ]
     }
 ]

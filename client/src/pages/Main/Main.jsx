@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Main() {
 
-  const [query, setQuery] = useState('SELECT id, nombre, edad FROM cliente')
+  const [query, setQuery] = useState('SELECT idCliente, nombre, edad FROM cliente')
 
   const [rows, setRows] = useState([])
 
@@ -26,6 +26,8 @@ export default function Main() {
   const [loading, setLoading] = useState(false);
 
   const { showSaveQuery, showNav, setShowNav } = useMainContext()
+
+  const [rowsSaveResponse, setRowsSaveResponse] = useState([])
 
   // const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
 
@@ -57,7 +59,7 @@ export default function Main() {
     if (Array.isArray(response.data)) {
       if (!response.data.length == 0) {
         setRows(response.data)
-        setRowsInit([...rowsInit, response.data])
+        // setRowsInit([...rowsInit, response.data]) //agregar respuesta en el arreglo de las tablas-default
       } else {
         setMessage({ data: 'No hay resultados para la consulta', error: false })
       }
@@ -73,6 +75,10 @@ export default function Main() {
       }
     }
     setLoading(false);
+  }
+
+  const handleSaveResponse = () => {
+    setRowsSaveResponse([rows, ...rowsSaveResponse])
   }
 
   return (
@@ -96,8 +102,9 @@ export default function Main() {
             </div>
             <textarea spellCheck="false" className='textarea-query' value={query} onChange={(handleChange)}></textarea>
           </form>
-          <div style={{ color: '#fff', marginBottom: '10px' }}>
+          <div style={{ color: '#fff', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
             <label>Output</label>
+            { !rows.length == 0 && <button className='button-saveresponse' onClick={handleSaveResponse}>Anclar</button> }
           </div>
           {
             !rows.length == 0 && <Table rows={rows} />
@@ -107,6 +114,11 @@ export default function Main() {
           }
           {
             loading && <h2 style={{ color: '#fff', fontSize: '20px' }}>loading...</h2>
+          }
+          {
+            !rowsSaveResponse.length == 0 && rowsSaveResponse.map((item, index) => (
+              <Table key={index+10} rows={rowsSaveResponse[index]} responseFlag={true} responseArray={rowsSaveResponse} setRowsSaveResponse={setRowsSaveResponse} index={index} />
+            ))
           }
         </div>
         <div className='default-tables'>

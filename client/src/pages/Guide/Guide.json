@@ -15,6 +15,24 @@
         "example": "UPDATE cliente SET nombre = 'Carlos' WHERE id = 1;"
     },
     {
+        "command": "INNER JOIN",
+        "text": "Esta es la opción predeterminada. Si no se especifica el tipo de unión, se establecerá de manera predeterminada como la unión interna. Esto implica que si estamos uniendo dos tablas en una columna común, solo retornaran los datos que coincidan en ambas tablas.",
+        "image": "https://www.sqlshack.com/wp-content/uploads/2018/10/word-image-150.png",
+        "example": "SELECT c.idCliente, c.nombre, c.edad, o.idOrden, o.monto FROM cliente c JOIN orden o ON o.idCliente = c.idCliente"
+    },
+    {
+        "command": "LEFT JOIN",
+        "text": "Este tipo de unión significa que solo retornan todos los datos de la tabla de la mano izquierda, solo si los datos coinciden con la tabla de la mano derecha.",
+        "image": "https://www.sqlshack.com/wp-content/uploads/2018/10/word-image-151.png",
+        "example": "SELECT c.idCliente, c.nombre, c.edad, o.idOrden, o.monto FROM cliente c JOIN orden o ON o.idCliente = c.idCliente"
+    },
+    {
+        "command": "RIGHT JOIN",
+        "text": "Este tipo de unión es el caso opuesto al anterior. Implica que solo retornaran los datos de la tabla de la mano derecha, solo si los datos coinciden con la tabla de la mano izquierda.",
+        "image": "https://www.sqlshack.com/wp-content/uploads/2018/10/word-image-152.png",
+        "example": "SELECT c.idCliente, c.nombre, c.edad, o.idOrden, o.monto FROM cliente c JOIN orden o ON o.idCliente = c.idCliente"
+    },
+    {
         "command": "CREATE TABLE",
         "text": "Se utiliza para crear una nueva tabla.",
         "example": "CREATE TABLE cliente ( id INT PRIMARY KEY, nombre VARCHAR(20) );"

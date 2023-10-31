@@ -1,16 +1,28 @@
-export default function Table ({ rows }) {
-    return(
-        <table>
-          <thead>
-            <tr>
-              {
-                Object.keys(rows[0]).map((item) => (
-                  <th key={item}>{item}</th>
-                ))    
-              }
-            </tr>
-          </thead>
-          <tbody>
+import { useState } from "react"
+
+export default function Table({ rows, responseFlag, responseArray, setRowsSaveResponse, index }) {
+
+  const handleDeleteTable = () => {
+    responseArray.splice(index, 1)
+    setRowsSaveResponse([...responseArray])
+  }
+  
+  return (
+    <>
+      {responseFlag && <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button className="button-delete-table-save-response" onClick={handleDeleteTable}>X</button>
+      </div>}
+      <table style={ responseFlag ? { background: '#252525' } : {} }>
+        <thead>
+          <tr>
+            {
+              Object.keys(rows[0]).map((item) => (
+                <th style={ responseFlag ? { color: '#d6d6d6' } : {} } key={item}>{item}</th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
           {
             rows.map((item, rowId) => (
               <tr key={rowId}>
@@ -22,7 +34,8 @@ export default function Table ({ rows }) {
               </tr>
             ))
           }
-          </tbody>
-        </table>
-    )
+        </tbody>
+      </table>
+    </>
+  )
 }

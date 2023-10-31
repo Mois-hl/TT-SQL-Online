@@ -34,14 +34,14 @@ export default function Guide() {
                     <div className='lista-guide'>
                         <ul>
                             {
-                                commandArray.map((element) => (
-                                    <li onClick={() => handleCommandText(element.command)}>{element.command}</li>
+                                commandArray.map((element, index) => (
+                                    <li key={index} onClick={() => handleCommandText(element.command)}>{element.command}</li>
                                 ))
                             }
                         </ul>
                     </div>
                     <div>
-                        { commmandInfo && <CommandText command={commmandInfo.command} text={commmandInfo.text} example={commmandInfo.example} /> }
+                        { commmandInfo && <CommandText command={commmandInfo.command} text={commmandInfo.text} example={commmandInfo.example} image={commmandInfo.image} /> }
                     </div>
                 </div>
             </div>

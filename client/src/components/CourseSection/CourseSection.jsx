@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react'
-import './CourseSection.css'
-import courseArray from './CourseSection.json'
 import { useMainContext } from '../../context/Context'
+import './CourseSection.css'
 
-export default function CourseSection() {
+export default function CourseSection({array, select, setSelect}) {
 
-	const {arrayActivities, setArrayActivities} = useMainContext()
+	// const [select, setSelect] = useState(0);
 
-	useEffect(() => {
-		setArrayActivities(courseArray)
-	}, [])
+	const handleNextLesson = () => {
+		if(select < array.length-1)
+			setSelect(select+1)
+	}
+
+	const handlePreviousLesson = () => {
+		if(select > 0)
+			setSelect(select-1)
+	}
 
 	return (
 		<div className='course-section'>
 			<div>
-				<p style={{ marginBottom: '10px' }}>Lección 1 - Consultas con el comando SELECT</p>
+				<p style={{ marginBottom: '10px' }}>{array[select].lesson}</p>
 				<ul>
 					{
-						arrayActivities && arrayActivities.map((element, index) => (
+						array[select].activities.map((element, index) => (
 							<li style={element.resolve ? { opacity: '0.2' } : {}} key={index}>
 								<span dangerouslySetInnerHTML={{ __html: element.activity }}></span> {element.resolve && "✅"}
 							</li>
@@ -26,8 +31,8 @@ export default function CourseSection() {
 				</ul>
 			</div>
 			<div style={{ alignSelf: 'end' }} >
-				<button className='previous-button-course' >Lección previa</button>
-				<button className='next-button-course' >Siguiente</button>
+				<button className='previous-button-course' onClick={handlePreviousLesson} >Lección previa</button>
+				<button className='next-button-course' onClick={handleNextLesson} >Siguiente</button>
 			</div>
 		</div>
 	)

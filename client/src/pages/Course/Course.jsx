@@ -12,10 +12,12 @@ import './Course.css'
 import CourseSection from '../../components/CourseSection/CourseSection.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import activities from '../../components/CourseSection/activities template.json'
+import hash from 'hash-it';
 
 export default function Course() {
 
-	const [query, setQuery] = useState('SELECT id, nombre, edad FROM cliente')
+	const [query, setQuery] = useState('SELECT idCliente, nombre, edad FROM cliente')
 
 	const [rows, setRows] = useState([])
 
@@ -24,14 +26,16 @@ export default function Course() {
 	const [message, setMessage] = useState({});
 
 	const [loading, setLoading] = useState(false);
+	
+	const [select, setSelect] = useState(0);
 
 	const { showSaveQuery, showNav, setShowNav, arrayActivities, setArrayActivities } = useMainContext()
 
 	useEffect(() => {
 		setShowNav(false)
+		setArrayActivities(activities)
 		const init = async () => {
 			const response = await initializeApp();
-			// console.log(response);
 			if (Array.isArray(response.data))
 				if (!response.data.length == 0)
 					setRowsInit(response.data);
@@ -51,17 +55,18 @@ export default function Course() {
 		setRows([]);
 		setMessage({});
 		const response = await executeQuery(query);
-		// console.log(response);
 		if (Array.isArray(response.data)) {
 			if (!response.data.length == 0) {
 				setRows(response.data)
-				const found = arrayActivities.findIndex((element) => element.next == true)
+				const hashValue = hash(response.data);
+				// console.log(hashValue);
+				const found = arrayActivities[select].activities.findIndex((element) => element.next == true)
 				if(found >= 0){
-					if(arrayActivities[found].response.includes(query)){
-						arrayActivities[found].next = false
-						arrayActivities[found].resolve = true
-						if(arrayActivities[found+1]){
-							arrayActivities[found+1].next = true
+					if(arrayActivities[select].activities[found].response == hashValue){
+						arrayActivities[select].activities[found].next = false
+						arrayActivities[select].activities[found].resolve = true
+						if(arrayActivities[select].activities[found+1]){
+							arrayActivities[select].activities[found+1].next = true
 						}else{
 							notify()
 						}
@@ -120,7 +125,7 @@ export default function Course() {
 					</div>
 				</div>
 				<div>
-					<CourseSection />
+					{ arrayActivities && <CourseSection array={ arrayActivities } select={select} setSelect={setSelect} /> }
 					<div className='default-tables-course'>
 						{
 							!rowsInit.length == 0 && rowsInit.map((item, index) => (
