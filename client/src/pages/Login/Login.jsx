@@ -16,6 +16,20 @@ export default function Login() {
   const passwordRef = useRef()
   const navigate = useNavigate()
 
+  const [showConfirmPass, setShowConfirmPass] = useState(false)
+  const confirmPassRef = useRef()
+  
+  async function handleConfirmPass() {
+    setShowConfirmPass(true)
+    if(confirmPassRef.current){
+      if(passwordRef.current.value == confirmPassRef.current.value){
+        handleSingUp()
+      }else{
+        notifyConfirmPass()
+      }
+    }
+  }
+
   // sign up
   async function handleSingUp() {
     setLoading(true)
@@ -63,7 +77,8 @@ export default function Login() {
     setLoading(false)
   }, [currentUser])
 
-  const notify = () => toast.error("Contraseña incorrecta!");
+  const notify = () => toast.error("Correo electrónico o contraseña son incorrectos");
+  const notifyConfirmPass = () => toast.error("Las contraseñas no coinciden");
 
   return (
     <div className="layout-login">
@@ -74,17 +89,20 @@ export default function Login() {
         <p style={{ color: '#0e293d', fontSize: '12px', textAlign: 'center' }}>Aprende a programar en<br />lenguaje SQL 👩‍💻👨‍💻</p>
         <div className='inputs-login'>
           <input ref={emailRef} placeholder='email' />
-          <input ref={passwordRef} type='password' placeholder='password' />
+          <input ref={passwordRef} type='password' placeholder='contraseña' />
+          { showConfirmPass &&
+            <input ref={confirmPassRef} type='password' placeholder='confirma contraseña' />
+          }
         </div>
         {
-          !currentUser &&
+          !(currentUser || showConfirmPass) &&
           <button className='button-login' disabled={loading} onClick={handleLogIn}>
             Iniciar sesión
           </button>
         }
         {
           !currentUser &&
-          <button className='button-signup-login' disabled={loading} onClick={handleSingUp}>
+          <button className='button-signup-login' disabled={loading} onClick={handleConfirmPass}>
             Crear cuenta
           </button>
         }

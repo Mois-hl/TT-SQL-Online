@@ -47,7 +47,7 @@
         "activities": [
             {
                 "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
-                "response": "SELECT idCliente, nombre, edad FROM cliente",
+                "response": "15907993886001",
                 "resolve": false,
                 "next": true
             }
