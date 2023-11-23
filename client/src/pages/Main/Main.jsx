@@ -12,9 +12,11 @@ import FormQuery from '../../components/FormQuery/FormQuery';
 import { useMainContext } from '../../context/Context';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CodeEditor from '@uiw/react-textarea-code-editor';
 
 export default function Main() {
 
+  // const [query, setQuery] = useState('<span class="mark-keyword">SELECT</span> idCliente, nombre, edad <span class="mark-keyword">FROM</span> cliente;')
   const [query, setQuery] = useState('SELECT idCliente, nombre, edad FROM cliente')
 
   const [rows, setRows] = useState([])
@@ -45,15 +47,30 @@ export default function Main() {
     init();
   }, [])
 
-  const handleChange = (event) => {
-    setQuery(event.target.value)
-  }
+  //  const handleChange = (event) => {
+  //   const value = event.target.value;
+  //   // Lista de palabras clave que quieres resaltar
+  //   const keywords = ['select ', 'from', 'order', 'by', 'where', 'insert', 'table', 'create', 'asc', 'desc', ' as '];
+  //   // Expresión regular para buscar las palabras clave
+  //   const regexKeywords = new RegExp(keywords.join('|'), 'gi');
+  //   // Reemplaza las palabras clave con un span de estilo
+  //   var htmlCode = value.replace(regexKeywords, (match) => `<span class="mark-keyword">${match}</span>`);
+  //   // Actualiza el estado con el nuevo contenido resaltado
+  //   const regexDigit = /\d+/g;
+  //   htmlCode = htmlCode.replace(regexDigit, (match) => `<span class="mark-digit">${match}</span>`);
+  //   // Actualiza el estado con el nuevo contenido resaltado
+  //   // const regexOperators = / \W+ /g;
+  //   // htmlCode = htmlCode.replace(regexOperators, (match) => `<span class="mark-operator">${match}</span>`);
+
+  //   setQuery(htmlCode)
+  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setRows([]);
     setMessage({});
+    // const response = await executeQuery(query.replace(/<[^>]*>?/gm, ''));
     const response = await executeQuery(query);
     // console.log(response);
     if (Array.isArray(response.data)) {
@@ -100,7 +117,24 @@ export default function Main() {
                 {/* <button className='button-send' type='button' onClick={handleSaveQuery}>Save ❤️</button> */}
               </div>
             </div>
-            <textarea spellCheck="false" className='textarea-query' value={query} onChange={(handleChange)}></textarea>
+            <textarea spellCheck="false" className='textarea-query' value={query} onChange={(e) => setQuery(e.target.value)} />
+            {/* <div className='htmlCodeContainer'>
+              <textarea spellCheck="false" className='textarea-query-code' value={query.replace(/<[^>]*>?/gm, '')} onChange={handleChange} />
+              <div className='codeHtmlQuery' dangerouslySetInnerHTML={{__html: query}} />
+            </div> */}
+            {/* <CodeEditor
+              value={query}
+              language="sql"
+              placeholder="Ingresa una sentencia SQL"
+              onChange={(evn) => setQuery(evn.target.value)}
+              style={{
+                fontSize: 16,
+                backgroundColor: "#f5f5f5",
+                fontFamily: 'consolas',
+                borderRadius: '10px',
+                minHeight: '200px',
+                marginBottom: '10px'}}
+            /> */}
           </form>
           <div style={{ color: '#fff', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
             <label>Output</label>

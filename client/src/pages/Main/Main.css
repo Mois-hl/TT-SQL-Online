@@ -22,7 +22,7 @@
   resize: none;
   outline: none;
   margin-bottom: 10px;
-  font-family: Roboto;
+  font-family: Consolas;
   font-weight: bold;
   border: none;
   font-size: 15px;
@@ -138,4 +138,91 @@ header svg{
 
 header svg:active{
   opacity: 0.2;
+}
+
+.htmlCodeContainer{
+  position: relative;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 0px;
+  overflow: hidden;
+  font-size: 16px;
+  background-color: rgb(245, 245, 245);
+  font-family: consolas;
+  border-radius: 10px;
+  min-height: 200px;
+  margin-bottom: 10px;
+}
+
+.codeHtmlQuery{
+  margin: 0px;
+  border: 0px;
+  background: none;
+  box-sizing: inherit;
+  display: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-variant-ligatures: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  tab-size: inherit;
+  text-indent: inherit;
+  text-rendering: inherit;
+  text-transform: inherit;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  outline: 0px;
+  padding: 10px;
+  min-height: 16px;
+}
+
+.textarea-query-code{
+  margin: 0px;
+  border: 0px;
+  background: none;
+  box-sizing: inherit;
+  display: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-variant-ligatures: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  tab-size: inherit;
+  text-indent: inherit;
+  text-rendering: inherit;
+  text-transform: inherit;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  outline: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  resize: none;
+  color: inherit;
+  opacity: 0.8;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-fill-color: transparent;
+  padding: 10px;
+  min-height: 16px;
+}
+
+.mark-keyword{
+  color: #D70040;
+}
+
+.mark-operator{
+  color: #0550ae;
+}
+
+.mark-digit{
+  color: #116329;
 }

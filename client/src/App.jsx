@@ -12,14 +12,12 @@ function App() {
 
   return (
     <ContextProvider>
-      {/* <NavBar /> */}
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/login' element={<Login />} />
         <Route path='/list' element={<QueryList />} />
         <Route path='/guide' element={<Guide /> } />
         <Route path='/course' element={<Course /> } />
-        <Route path='/li' element={<QueryList />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </ContextProvider>

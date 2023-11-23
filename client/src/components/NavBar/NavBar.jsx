@@ -36,10 +36,10 @@ export default function NavBar({ show }) {
         { currentUser && <Link to='/list' onClick={() => setShowNav(false)}><span>Lista sentencias</span></Link> }
         </li>
         <li>
-          <Link to='/guide' onClick={() => setShowNav(false)}><span>Guias de comandos</span></Link>
+          <Link to='/guide' onClick={() => setShowNav(false)}><span>Guía de comandos</span></Link>
         </li>
         <li>
-        { currentUser && <Link to='/course' onClick={() => setShowNav(false)}><span>Curso interactivo</span></Link> }
+        { currentUser && <Link to='/course' onClick={() => setShowNav(false)}><span>Curso práctico</span></Link> }
         </li>
         <li>
           <Link to='/'><span>Acerca de</span></Link>

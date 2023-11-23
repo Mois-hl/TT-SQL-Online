@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@uiw/react-textarea-code-editor": "^2.1.9",
     "axios": "^1.4.0",
     "firebase": "^10.4.0",
     "hash-it": "^6.0.0",
