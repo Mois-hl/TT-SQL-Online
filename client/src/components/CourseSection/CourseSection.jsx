@@ -23,7 +23,7 @@ export default function CourseSection({array, select, setSelect}) {
 				<ul>
 					{
 						array[select].activities.map((element, index) => (
-							<li style={element.resolve ? { opacity: '0.2' } : {}} key={index}>
+							<li style={element.resolve ? { opacity: '0.2', marginBottom: '6px' } : {marginBottom: '6px'}} key={index}>
 								<span dangerouslySetInnerHTML={{ __html: element.activity }}></span> {element.resolve && "✅"}
 							</li>
 						))

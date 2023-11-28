@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Table({ rows, responseFlag, responseArray, setRowsSaveResponse, index }) {
+export default function Table({ rows, responseFlag, responseArray, setRowsSaveResponse, index, name }) {
 
   const handleDeleteTable = () => {
     responseArray.splice(index, 1)
@@ -12,6 +12,9 @@ export default function Table({ rows, responseFlag, responseArray, setRowsSaveRe
       {responseFlag && <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button className="button-delete-table-save-response" onClick={handleDeleteTable}>X</button>
       </div>}
+      {
+        name && <div style={{ marginLeft: '10px', marginBottom: '5px', color: '#ddd' }} >{name}</div>
+      }
       <table style={ responseFlag ? { background: '#252525' } : {} }>
         <thead>
           <tr>

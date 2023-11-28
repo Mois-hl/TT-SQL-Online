@@ -5,25 +5,25 @@
         "activities": [
             {
                 "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
-                "response": "7500315373372",
+                "response": "7557118814025",
                 "resolve": false,
                 "next": true
             },
             {
                 "activity": "Selecciona el <span class='course-section-marktext' >nombre</span> y la <span class='course-section-marktext' >edad</span> de la tabla cliente",
-                "response": "12117011966057",
+                "response": "5107514350242",
                 "resolve": false,
                 "next": false
             },
             {
                 "activity": "Selecciona el <span class='course-section-marktext' >idOrden</span> y el <span class='course-section-marktext' >monto</span> de la tabla orden",
-                "response": "16097629300031",
+                "response": "14801318898785",
                 "resolve": false,
                 "next": false
             },
             {
                 "activity": "Selecciona <span class='course-section-marktext' >todos los campos</span> de la tabla orden",
-                "response": "12545238414713",
+                "response": "7004463392319",
                 "resolve": false,
                 "next": false
             }
@@ -34,10 +34,28 @@
         "select": false,
         "activities": [
             {
-                "activity": "Selecciona el registro con el <span class='course-section-marktext' >idCliente = 2</span> de la tabla cliente.",
-                "response": "SELECT * FROM cliente WHERE idCliente = 2",
+                "activity": "Selecciona el registro con el <span class='course-section-marktext' >idCliente = 2</span> de la tabla cliente. (selecciona todas las columnas)",
+                "response": "10582358922851",
                 "resolve": false,
                 "next": true
+            },
+            {
+                "activity": "Selecciona los registros que tengan <span class='course-section-marktext' >más de 25 años de edad</span> de la tabla cliente.  (selecciona todas las columnas)",
+                "response": "5840491154015",
+                "resolve": false,
+                "next": false
+            },
+            {
+                "activity": "Selecciona los registros que su <span class='course-section-marktext' > apellido empiece con la letra R</span> de la tabla cliente. (selecciona todas las columnas)",
+                "response": "4000348353648",
+                "resolve": false,
+                "next": false
+            },
+            {
+                "activity": "Combina los tres ejercicios anteriores. (selecciona todas las columnas)",
+                "response": "10582358922851",
+                "resolve": false,
+                "next": false
             }
         ]
     },
@@ -47,7 +65,7 @@
         "activities": [
             {
                 "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
-                "response": "15907993886001",
+                "response": "3909919946449",
                 "resolve": false,
                 "next": true
             }

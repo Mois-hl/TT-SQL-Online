@@ -26,7 +26,7 @@ export default function Course() {
 	const [message, setMessage] = useState({});
 
 	const [loading, setLoading] = useState(false);
-	
+
 	const [select, setSelect] = useState(0);
 
 	const { showSaveQuery, showNav, setShowNav, arrayActivities, setArrayActivities } = useMainContext()
@@ -43,10 +43,6 @@ export default function Course() {
 		init();
 	}, [])
 
-	const handleChange = (event) => {
-		setQuery(event.target.value)
-	}
-
 	const notify = () => toast.success("Lección terminada!");
 
 	const handleSubmit = async (event) => {
@@ -54,38 +50,43 @@ export default function Course() {
 		setLoading(true);
 		setRows([]);
 		setMessage({});
-		const response = await executeQuery(query);
-		if (Array.isArray(response.data)) {
-			if (!response.data.length == 0) {
-				setRows(response.data)
-				const hashValue = hash(response.data);
-				// console.log(hashValue);
-				const found = arrayActivities[select].activities.findIndex((element) => element.next == true)
-				if(found >= 0){
-					if(arrayActivities[select].activities[found].response == hashValue){
-						arrayActivities[select].activities[found].next = false
-						arrayActivities[select].activities[found].resolve = true
-						if(arrayActivities[select].activities[found+1]){
-							arrayActivities[select].activities[found+1].next = true
-						}else{
-							notify()
+		if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE')) {
+			setMessage({ data: 'Sentencia no permitida.', error: true })
+		} else {
+			const response = await executeQuery(query);
+			if (Array.isArray(response.data)) {
+				if (!response.data.length == 0) {
+					setRows(response.data)
+					const valuesArray = response.data.map((item) => Object.values(item));
+					const hashValue = hash(valuesArray);
+					const found = arrayActivities[select].activities.findIndex((element) => element.next == true)
+					if (found >= 0) {
+						if (arrayActivities[select].activities[found].response == hashValue) {
+							arrayActivities[select].activities[found].next = false
+							arrayActivities[select].activities[found].resolve = true
+							if (arrayActivities[select].activities[found + 1]) {
+								arrayActivities[select].activities[found + 1].next = true
+							} else {
+								notify()
+							}
 						}
 					}
+				} else {
+					setMessage({ data: 'No hay resultados para la consulta', error: false })
 				}
 			} else {
-				setMessage({ data: 'No hay resultados para la consulta', error: false })
-			}
-		} else {
-			if (response.message) {
-				setMessage({ data: response.message, error: true })
-			} else if (response.data.affectedRows >= 0) {
-				if (response.data.affectedRows == 1) {
-					setMessage({ data: `${response.data.affectedRows} fila fue afectada`, error: false })
-				} else {
-					setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
+				if (response.message) {
+					setMessage({ data: response.message, error: true })
+				} else if (response.data.affectedRows >= 0) {
+					if (response.data.affectedRows == 1) {
+						setMessage({ data: `${response.data.affectedRows} fila fue afectada`, error: false })
+					} else {
+						setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
+					}
 				}
 			}
 		}
+
 		setLoading(false);
 	}
 
@@ -107,7 +108,7 @@ export default function Course() {
 								<button className='button-send' type='submit' ><div style={{ display: 'flex', gap: '4px' }} ><IoMdSend /> <p>Enviar</p></div></button>
 							</div>
 						</div>
-						<textarea spellCheck="false" className='textarea-query-course' value={query} onChange={(handleChange)}></textarea>
+						<textarea placeholder='Ingresa una sentencia SQL...' spellCheck="false" className='textarea-query' value={query} onChange={(e) => setQuery(e.target.value)} />
 					</form>
 					<div style={{ color: '#fff', marginBottom: '10px' }}>
 						<label>Output</label>
@@ -125,12 +126,16 @@ export default function Course() {
 					</div>
 				</div>
 				<div>
-					{ arrayActivities && <CourseSection array={ arrayActivities } select={select} setSelect={setSelect} /> }
+					{arrayActivities && <CourseSection array={arrayActivities} select={select} setSelect={setSelect} />}
 					<div className='default-tables-course'>
 						{
-							!rowsInit.length == 0 && rowsInit.map((item, index) => (
-								<Table key={index} rows={rowsInit[index]} />
-							))
+							!rowsInit.length == 0 && rowsInit.map((item, index) => {
+								if (item.rows.length > 0)
+									return (
+										<Table key={index} rows={item.rows} name={item.name} />
+									)
+							}
+							)
 						}
 					</div>
 				</div>

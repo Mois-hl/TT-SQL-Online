@@ -41,7 +41,7 @@ export default function Main() {
       const response = await initializeApp();
       // console.log(response);
       if (Array.isArray(response.data))
-        if (!response.data.length == 0)
+        if (response.data.length > 0)
           setRowsInit(response.data);
     }
     init();
@@ -71,26 +71,37 @@ export default function Main() {
     setRows([]);
     setMessage({});
     // const response = await executeQuery(query.replace(/<[^>]*>?/gm, ''));
-    const response = await executeQuery(query);
-    // console.log(response);
-    if (Array.isArray(response.data)) {
-      if (!response.data.length == 0) {
-        setRows(response.data)
-        // setRowsInit([...rowsInit, response.data]) //agregar respuesta en el arreglo de las tablas-default
-      } else {
-        setMessage({ data: 'No hay resultados para la consulta', error: false })
-      }
-    } else {
-      if (response.message) {
-        setMessage({ data: response.message, error: true })
-      } else if (response.data.affectedRows >= 0) {
-        if (response.data.affectedRows == 1) {
-          setMessage({ data: `${response.data.affectedRows} fila fue afectada`, error: false })
+    if(query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')){
+      setMessage({ data: 'Sentencia no permitida.', error: true })
+    }else{
+      const response = await executeQuery(query);
+      // console.log(response);
+      if (Array.isArray(response.data)) {
+        if (!response.data.length == 0) {
+          setRows(response.data)
+          // setRowsInit([...rowsInit, response.data]) //agregar respuesta en el arreglo de las tablas-default
         } else {
-          setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
+          setMessage({ data: 'No hay resultados para la consulta', error: false })
+        }
+      } else {
+        if (response.message) {
+          setMessage({ data: response.message, error: true })
+        } else if (response.data.affectedRows >= 0) {
+          if (response.data.affectedRows == 1) {
+            setMessage({ data: `${response.data.affectedRows} fila fue afectada`, error: false })
+          } else {
+            setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
+          }
+        }
+        if (query.toUpperCase().includes('INSERT') || query.toUpperCase().includes('UPDATE') || query.toUpperCase().includes('ALTER') || query.toUpperCase().includes('DELETE')) {
+          const responseRefreshTables = await initializeApp();
+          if (Array.isArray(responseRefreshTables.data))
+            if (!responseRefreshTables.data.length == 0)
+              setRowsInit(responseRefreshTables.data);
         }
       }
     }
+    
     setLoading(false);
   }
 
@@ -117,7 +128,7 @@ export default function Main() {
                 {/* <button className='button-send' type='button' onClick={handleSaveQuery}>Save ❤️</button> */}
               </div>
             </div>
-            <textarea spellCheck="false" className='textarea-query' value={query} onChange={(e) => setQuery(e.target.value)} />
+            <textarea placeholder='Ingresa una sentencia SQL...' spellCheck="false" className='textarea-query' value={query} onChange={(e) => setQuery(e.target.value)} />
             {/* <div className='htmlCodeContainer'>
               <textarea spellCheck="false" className='textarea-query-code' value={query.replace(/<[^>]*>?/gm, '')} onChange={handleChange} />
               <div className='codeHtmlQuery' dangerouslySetInnerHTML={{__html: query}} />
@@ -157,9 +168,14 @@ export default function Main() {
         </div>
         <div className='default-tables'>
           {
-            !rowsInit.length == 0 && rowsInit.map((item, index) => (
-              <Table key={index} rows={rowsInit[index]} />
-            ))
+            !rowsInit.length == 0 && rowsInit.map((item, index) => 
+            {
+              if(item.rows.length > 0)
+                return (
+                  <Table key={index} rows={item.rows} name={item.name} />
+                ) 
+            }
+            )
           }
         </div>
       </div>
