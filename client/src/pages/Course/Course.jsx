@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { executeQuery, initializeApp } from '../../api/api.js'
+import { executeQuery, initializeApp, resetApp } from '../../api/api.js'
 import Table from '../../components/Table/Table.jsx'
 import Message from '../../components/Message/Message.jsx'
 import NavBar from '../../components/NavBar/NavBar';
@@ -35,6 +35,7 @@ export default function Course() {
 		setShowNav(false)
 		setArrayActivities(activities)
 		const init = async () => {
+			const responseReset = await resetApp();
 			const response = await initializeApp();
 			if (Array.isArray(response.data))
 				if (!response.data.length == 0)

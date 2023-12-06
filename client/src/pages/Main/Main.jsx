@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Main.css'
-import { executeQuery, initializeApp } from '../../api/api.js'
+import { executeQuery, initializeApp, resetApp } from '../../api/api.js'
 import { v4 as uuidv4 } from 'uuid';
 import Table from '../../components/Table/Table.jsx'
 import Message from '../../components/Message/Message.jsx'
@@ -38,6 +38,7 @@ export default function Main() {
   useEffect(() => {
     setShowNav(false)
     const init = async () => {
+      const responseReset = await resetApp();
       const response = await initializeApp();
       // console.log(response);
       if (Array.isArray(response.data))
@@ -70,16 +71,13 @@ export default function Main() {
     setLoading(true);
     setRows([]);
     setMessage({});
-    // const response = await executeQuery(query.replace(/<[^>]*>?/gm, ''));
-    if(query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')){
+    if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')) {
       setMessage({ data: 'Sentencia no permitida.', error: true })
-    }else{
+    } else {
       const response = await executeQuery(query);
-      // console.log(response);
       if (Array.isArray(response.data)) {
         if (!response.data.length == 0) {
           setRows(response.data)
-          // setRowsInit([...rowsInit, response.data]) //agregar respuesta en el arreglo de las tablas-default
         } else {
           setMessage({ data: 'No hay resultados para la consulta', error: false })
         }
@@ -101,7 +99,6 @@ export default function Main() {
         }
       }
     }
-    
     setLoading(false);
   }
 
