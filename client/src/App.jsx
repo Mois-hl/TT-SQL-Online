@@ -7,6 +7,7 @@ import Login from './pages/Login/Login.jsx'
 import QueryList from './pages/QueryList/QueryList.jsx'
 import Guide from './pages/Guide/Guide.jsx'
 import Course from './pages/Course/Course.jsx'
+import About from './pages/About/About.jsx'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/list' element={<QueryList />} />
         <Route path='/guide' element={<Guide /> } />
         <Route path='/course' element={<Course /> } />
+        <Route path='/about' element={<About /> } />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </ContextProvider>

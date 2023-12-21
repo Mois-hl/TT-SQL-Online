@@ -42,7 +42,7 @@ export default function NavBar({ show }) {
         { currentUser && <Link to='/course' onClick={() => setShowNav(false)}><span>Curso práctico</span></Link> }
         </li>
         <li>
-          <Link to='/'><span>Acerca de</span></Link>
+          <Link to='/about'><span>Acerca de</span></Link>
         </li>
         <li>
           { currentUser && <a onClick={handleLogOut}><span style={{ color: '#f54848' }}>Cerrar sesión</span></a> }

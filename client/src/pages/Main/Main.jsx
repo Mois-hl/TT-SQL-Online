@@ -27,7 +27,7 @@ export default function Main() {
 
   const [loading, setLoading] = useState(false);
 
-  const { showSaveQuery, showNav, setShowNav } = useMainContext()
+  const { showSaveQuery, showNav, setShowNav, setStatementFromGuidePage, statementFromGuidePage } = useMainContext()
 
   const [rowsSaveResponse, setRowsSaveResponse] = useState([])
 
@@ -37,6 +37,10 @@ export default function Main() {
 
   useEffect(() => {
     setShowNav(false)
+    if(statementFromGuidePage){
+      setStatementFromGuidePage(null)
+      setQuery(statementFromGuidePage)
+    }
     const init = async () => {
       const responseReset = await resetApp();
       const response = await initializeApp();
@@ -91,7 +95,7 @@ export default function Main() {
             setMessage({ data: `${response.data.affectedRows} filas fueron afectadas`, error: false })
           }
         }
-        if (query.toUpperCase().includes('INSERT') || query.toUpperCase().includes('UPDATE') || query.toUpperCase().includes('ALTER') || query.toUpperCase().includes('DELETE')) {
+        if (query.toUpperCase().includes('INSERT') || query.toUpperCase().includes('UPDATE') || query.toUpperCase().includes('ALTER') || query.toUpperCase().includes('DELETE') || query.toUpperCase().includes('DROP')) {
           const responseRefreshTables = await initializeApp();
           if (Array.isArray(responseRefreshTables.data))
             if (!responseRefreshTables.data.length == 0)

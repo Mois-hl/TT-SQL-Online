@@ -31,7 +31,7 @@ export default function CourseSection({array, select, setSelect}) {
 				</ul>
 			</div>
 			<div style={{ alignSelf: 'end' }} >
-				<button className='previous-button-course' onClick={handlePreviousLesson} >Lección previa</button>
+				<button className='previous-button-course' onClick={handlePreviousLesson} >Laboratorio previo</button>
 				<button className='next-button-course' onClick={handleNextLesson} >Siguiente</button>
 			</div>
 		</div>

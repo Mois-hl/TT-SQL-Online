@@ -44,7 +44,7 @@ export default function Course() {
 		init();
 	}, [])
 
-	const notify = () => toast.success("Lección terminada!");
+	const notify = () => toast.success("Laboratorio terminado!");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();

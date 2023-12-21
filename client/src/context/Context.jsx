@@ -26,6 +26,8 @@ export const ContextProvider = ({ children }) => {
 
   const[arrayActivities, setArrayActivities] = useState()
 
+  const[statementFromGuidePage, setStatementFromGuidePage] = useState()
+
   const notifyUpdateForm = () => toast.success("Sentencia actualizada correctamente!");
 
   const notifyCreateForm = () => toast.success("Sentencia guardada correctamente!");
@@ -34,7 +36,8 @@ export const ContextProvider = ({ children }) => {
 
   return <MainContext.Provider value={{ showSaveQuery, setShowSaveQuery, showQueryList, setShowQueryList,
     queryList, setQueryList, showNav, setShowNav, showUpdateQuery, setShowUpdateQuery, 
-    arrayActivities, setArrayActivities, notifyUpdateForm, notifyCreateForm, currentUser }}>
+    arrayActivities, setArrayActivities, notifyUpdateForm, notifyCreateForm, currentUser,
+    statementFromGuidePage, setStatementFromGuidePage }}>
     {children}
     </MainContext.Provider>
 }

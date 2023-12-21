@@ -1,0 +1,21 @@
+.about-container{
+    background: #f6f6f6;
+    border-radius: 10px;
+    padding: 50px;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.flex-about-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.about-container p{
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+}

@@ -10,10 +10,11 @@ export default function Guide() {
 
     const[commmandInfo, setCommandInfo] = useState()
 
-    const { showNav, setShowNav } = useMainContext()
+    const { showNav, setShowNav, setStatementFromGuidePage } = useMainContext()
 
     const handleCommandText = (command) => {
         const element = commandArray.find((item) => item.command == command)
+        setStatementFromGuidePage(element.example)
         setCommandInfo(element)
     }
 

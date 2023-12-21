@@ -1,6 +1,6 @@
 [
     {
-        "lesson": "Lección 1 - Consultas con el comando SELECT",
+        "lesson": "Laboratorio 1 - Consultas con el comando SELECT",
         "select": true,
         "activities": [
             {
@@ -23,14 +23,14 @@
             },
             {
                 "activity": "Selecciona <span class='course-section-marktext' >todos los campos</span> de la tabla orden",
-                "response": "7004463392319",
+                "response": "8060091329788",
                 "resolve": false,
                 "next": false
             }
         ]
     },
     {
-        "lesson": "Lección 2 - Consultas con el comando WHERE",
+        "lesson": "Laboratorio 2 - Consultas con el comando WHERE",
         "select": false,
         "activities": [
             {
@@ -60,11 +60,11 @@
         ]
     },
     {
-        "lesson": "Lección 3 - Consultas con el comando JOIN",
+        "lesson": "Laboratorio 3 - Consultas con el comando JOIN",
         "select": false,
         "activities": [
             {
-                "activity": "Selecciona unicamente el <span class='course-section-marktext' >nombre</span> de la tabla cliente.",
+                "activity": "Selecciona los <span class='course-section-marktext' >registros que coincidan</span> de ambas tablas (selecciona unicamente idcliente, nombre, idorden y monto)",
                 "response": "3909919946449",
                 "resolve": false,
                 "next": true
