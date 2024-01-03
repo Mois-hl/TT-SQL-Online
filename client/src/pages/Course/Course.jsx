@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { executeQuery, initializeApp, resetApp } from '../../api/api.js'
 import Table from '../../components/Table/Table.jsx'
 import Message from '../../components/Message/Message.jsx'
+import { v4 as uuidv4 } from 'uuid';
 import NavBar from '../../components/NavBar/NavBar';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { FaRegTrashCan } from 'react-icons/fa6';
@@ -30,13 +31,15 @@ export default function Course() {
 	const [select, setSelect] = useState(0);
 
 	const { showSaveQuery, showNav, setShowNav, arrayActivities, setArrayActivities } = useMainContext()
+	
+	const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
 
 	useEffect(() => {
 		setShowNav(false)
 		setArrayActivities(activities)
 		const init = async () => {
-			const responseReset = await resetApp();
-			const response = await initializeApp();
+			const responseReset = await resetApp(uuid);
+			const response = await initializeApp(uuid);
 			if (Array.isArray(response.data))
 				if (!response.data.length == 0)
 					setRowsInit(response.data);
@@ -46,6 +49,15 @@ export default function Course() {
 
 	const notify = () => toast.success("Laboratorio terminado!");
 
+	const handleExecuteQuery = async () => {
+		const tables = rowsInit.map((tables) => (` ${tables.name.replace(uuid, '')}`))
+		const regexTables = new RegExp(tables.join('|'), 'gi');
+		var newStatement = query.replace(regexTables, (match) => ` ${uuid}${match.substring(1, match.length)}`);
+		console.log(newStatement);
+		const response = await executeQuery(newStatement);
+		return response;
+	  }
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		setLoading(true);
@@ -54,7 +66,7 @@ export default function Course() {
 		if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE')) {
 			setMessage({ data: 'Sentencia no permitida.', error: true })
 		} else {
-			const response = await executeQuery(query);
+			const response = await handleExecuteQuery();
 			if (Array.isArray(response.data)) {
 				if (!response.data.length == 0) {
 					setRows(response.data)

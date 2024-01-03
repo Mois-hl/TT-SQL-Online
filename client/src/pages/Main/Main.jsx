@@ -74,9 +74,10 @@ export default function Main() {
   // }
 
    const handleExecuteQuery = async () => {
-    const tables = rowsInit.map((tables) => (` ${tables.name}`))
+    const tables = rowsInit.map((tables) => (` ${tables.name.replace(uuid, '')}`))
     const regexTables = new RegExp(tables.join('|'), 'gi');
     var newStatement = query.replace(regexTables, (match) => ` ${uuid}${match.substring(1, match.length)}`);
+    console.log(newStatement);
     const response = await executeQuery(newStatement);
     return response;
   }
@@ -184,7 +185,7 @@ export default function Main() {
             {
               if(item.rows.length > 0)
                 return (
-                  <Table key={index} rows={item.rows} name={item.name.replace(uuid, '')} />
+                  <Table key={index} rows={item.rows} name={item.name} />
                 ) 
             }
             )

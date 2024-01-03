@@ -37,8 +37,8 @@ export const initializeApp = async (req, res) => {
         const {data} = req.query;
         if(data){
             const [tableNames] = await pool.query('show tables');
-            console.log(tableNames);
             const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
+            console.log(tableNamesFiltered);
             const totalRows = tableNamesFiltered.map(async (table) => {
                 const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_main}`)
                 const tableNameAndRows = {name: table.Tables_in_main, rows: response}
