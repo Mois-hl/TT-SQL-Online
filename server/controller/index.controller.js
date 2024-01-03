@@ -14,15 +14,19 @@ export const executeQuery = async (req, res) => {
 
 export const resetApp = async (req, res) => {
     try {
-        const [tableNames] = await pool.query('show tables');
-        if(tableNames.length > 0){
-            const commandsToDeleteAllTables = tableNames.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_main};`))
-            const [responseDelete] = await pool.query(commandsToDeleteAllTables.join(' '));
+        const {data} = req.query;
+        if(data){
+            const [tableNames] = await pool.query('show tables');
+            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
+            if(tableNamesFiltered.length > 0){
+                const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_main};`))
+                const [responseDelete] = await pool.query(commandsToDeleteAllTables.join(' '));
+            }
+            const [clienteTable] = await pool.query(`CREATE TABLE IF NOT EXISTS ${data}cliente (idCliente INT NOT NULL, nombre VARCHAR(20) NULL, apellido VARCHAR(20) NULL, edad INT NOT NULL, ciudad VARCHAR(30) NULL)`);
+            const [ordenTable] = await pool.query(`CREATE TABLE IF NOT EXISTS ${data}orden (idOrden INT NOT NULL,idCliente INT NOT NULL,fecha DATE NOT NULL,monto DECIMAL(10,2) NULL)`);
+            const [inserts] = await pool.query(`INSERT INTO ${data}cliente (idCliente, nombre, apellido, edad, ciudad) VALUES (1, 'Juan', 'Pérez', 25, 'Ciudad de México'); INSERT INTO ${data}cliente (idCliente, nombre, apellido, edad, ciudad) VALUES (2, 'Monserrat', 'Ramírez', 30, 'Madrid'); INSERT INTO ${data}cliente (idCliente, nombre, apellido, edad, ciudad) VALUES (3, 'Carlos', 'López', 35, 'Buenos Aires');INSERT INTO ${data}cliente (idCliente, nombre, apellido, edad, ciudad) VALUES (4, 'Ana', 'Rodríguez', 28, 'Lima');INSERT INTO ${data}cliente (idCliente, nombre, apellido, edad, ciudad) VALUES (5, 'Pedro', 'Martínez', 32, 'Santiago');INSERT INTO ${data}orden (idOrden, idCliente, fecha, monto) VALUES (1, 3, '2023-07-18', 1500.00);INSERT INTO ${data}orden (idOrden, idCliente, fecha, monto) VALUES (2, 4, '2023-07-19', 2000.00);INSERT INTO ${data}orden (idOrden, idCliente, fecha, monto) VALUES (3, 1, '2023-07-20', 1500.00);INSERT INTO ${data}orden (idOrden, idCliente, fecha, monto) VALUES (4, 5, '2023-07-21', 1800.00);INSERT INTO ${data}orden (idOrden, idCliente, fecha, monto) VALUES (5, 1, '2023-07-22', 1200.00);`)
+            res.json(inserts);
         }
-        const [clienteTable] = await pool.query("CREATE TABLE IF NOT EXISTS cliente (idCliente INT NOT NULL, nombre VARCHAR(20) NULL, apellido VARCHAR(20) NULL, edad INT NOT NULL, ciudad VARCHAR(30) NULL)");
-        const [ordenTable] = await pool.query("CREATE TABLE IF NOT EXISTS orden (idOrden INT NOT NULL,idCliente INT NOT NULL,fecha DATE NOT NULL,monto DECIMAL(10,2) NULL)");
-        const [inserts] = await pool.query(insertsArray)
-        res.json(inserts);
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -30,14 +34,19 @@ export const resetApp = async (req, res) => {
 
 export const initializeApp = async (req, res) => {
     try {
-        const [tableNames] = await pool.query('show tables');
-        const totalRows = tableNames.map(async (table) => {
-            const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_main}`)
-            const tableNameAndRows = {name: table.Tables_in_main, rows: response}
-            return tableNameAndRows;
-        })  
-        const resolvedPromise =  await Promise.all(totalRows)
-        res.json(resolvedPromise)
+        const {data} = req.query;
+        if(data){
+            const [tableNames] = await pool.query('show tables');
+            console.log(tableNames);
+            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
+            const totalRows = tableNamesFiltered.map(async (table) => {
+                const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_main}`)
+                const tableNameAndRows = {name: table.Tables_in_main, rows: response}
+                return tableNameAndRows;
+            })  
+            const resolvedPromise =  await Promise.all(totalRows)
+            res.json(resolvedPromise)
+        }
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }

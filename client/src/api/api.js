@@ -26,7 +26,7 @@ export const executeQuery = async (query) =>
     })
 
 export const initializeApp = async (query) =>
-  await axios.get(import.meta.env.VITE_SERVER_URL + `/init`)
+  await axios.get(import.meta.env.VITE_SERVER_URL + `/init`, { params: {data: query}})
     .catch(function (error) {
       if (error.response) {
         console.log(error.response);
