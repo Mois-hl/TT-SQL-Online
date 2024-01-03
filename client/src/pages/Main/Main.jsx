@@ -31,9 +31,7 @@ export default function Main() {
 
   const [rowsSaveResponse, setRowsSaveResponse] = useState([])
 
-  const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
-
-  const [tables, setTables] = useState([])
+  // const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
 
   // const id = crypto.randomUUID()
 
@@ -44,13 +42,12 @@ export default function Main() {
       setQuery(statementFromGuidePage)
     }
     const init = async () => {
-      const responseReset = await resetApp(uuid);
-      const response = await initializeApp(uuid);
+      const responseReset = await resetApp();
+      const response = await initializeApp();
       // console.log(response);
       if (Array.isArray(response.data))
-        if (response.data.length > 0){
+        if (response.data.length > 0)
           setRowsInit(response.data);
-        }
     }
     init();
   }, [])
@@ -73,15 +70,6 @@ export default function Main() {
   //   setQuery(htmlCode)
   // }
 
-   const handleExecuteQuery = async () => {
-    const tables = rowsInit.map((tables) => (` ${tables.name.replace(uuid, '')}`))
-    const regexTables = new RegExp(tables.join('|'), 'gi');
-    var newStatement = query.replace(regexTables, (match) => ` ${uuid}${match.substring(1, match.length)}`);
-    console.log(newStatement);
-    const response = await executeQuery(newStatement);
-    return response;
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -90,7 +78,7 @@ export default function Main() {
     if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')) {
       setMessage({ data: 'Sentencia no permitida.', error: true })
     } else {
-      const response = await handleExecuteQuery();
+      const response = await executeQuery(query);
       if (Array.isArray(response.data)) {
         if (!response.data.length == 0) {
           setRows(response.data)
@@ -108,7 +96,7 @@ export default function Main() {
           }
         }
         if (query.toUpperCase().includes('INSERT') || query.toUpperCase().includes('UPDATE') || query.toUpperCase().includes('ALTER') || query.toUpperCase().includes('DELETE') || query.toUpperCase().includes('DROP')) {
-          const responseRefreshTables = await initializeApp(uuid);
+          const responseRefreshTables = await initializeApp();
           if (Array.isArray(responseRefreshTables.data))
             if (!responseRefreshTables.data.length == 0)
               setRowsInit(responseRefreshTables.data);
