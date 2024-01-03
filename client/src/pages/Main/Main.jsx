@@ -31,7 +31,7 @@ export default function Main() {
 
   const [rowsSaveResponse, setRowsSaveResponse] = useState([])
 
-  const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
+  const [uuid, setUuid] = useState(`t${uuidv4().replaceAll('-', '')}`)
 
   const [tables, setTables] = useState([])
 

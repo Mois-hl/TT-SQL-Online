@@ -15,8 +15,10 @@ export const executeQuery = async (req, res) => {
 export const resetApp = async (req, res) => {
     try {
         const {data} = req.query;
+        console.log(data);
         if(data){
             const [tableNames] = await pool.query('show tables');
+            console.log(tableNames);
             const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
             if(tableNamesFiltered.length > 0){
                 const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_main};`))
