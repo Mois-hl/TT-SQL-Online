@@ -19,9 +19,9 @@ export const resetApp = async (req, res) => {
         if(data){
             const [tableNames] = await pool.query('show tables');
             console.log(tableNames);
-            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
+            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_railway.includes(data))
             if(tableNamesFiltered.length > 0){
-                const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_main};`))
+                const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_railway};`))
                 const [responseDelete] = await pool.query(commandsToDeleteAllTables.join(' '));
             }
             const [clienteTable] = await pool.query(`CREATE TABLE IF NOT EXISTS ${data}cliente (idCliente INT NOT NULL, nombre VARCHAR(20) NULL, apellido VARCHAR(20) NULL, edad INT NOT NULL, ciudad VARCHAR(30) NULL)`);
@@ -39,11 +39,11 @@ export const initializeApp = async (req, res) => {
         const {data} = req.query;
         if(data){
             const [tableNames] = await pool.query('show tables');
-            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_main.includes(data))
+            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_railway.includes(data))
             console.log(tableNamesFiltered);
             const totalRows = tableNamesFiltered.map(async (table) => {
-                const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_main}`)
-                const tableNameAndRows = {name: table.Tables_in_main, rows: response}
+                const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_railway}`)
+                const tableNameAndRows = {name: table.Tables_in_railway, rows: response}
                 return tableNameAndRows;
             })  
             const resolvedPromise =  await Promise.all(totalRows)
