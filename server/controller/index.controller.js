@@ -1,5 +1,8 @@
 import { pool } from "../db.js "
 import {insertsArray} from "../scripts-db/inserts.js"
+import { DB_NAME } from '../config.js'
+
+const dbName = DB_NAME == 'main' ? 'Tables_in_main' : 'Tables_in_railway';
 
 export const executeQuery = async (req, res) => {
     try {
@@ -15,13 +18,11 @@ export const executeQuery = async (req, res) => {
 export const resetApp = async (req, res) => {
     try {
         const {data} = req.query;
-        console.log(data);
         if(data){
             const [tableNames] = await pool.query('show tables');
-            console.log(tableNames);
-            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_railway.includes(data))
+            const tableNamesFiltered = tableNames.filter((item) => item[dbName].includes(data))
             if(tableNamesFiltered.length > 0){
-                const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table.Tables_in_railway};`))
+                const commandsToDeleteAllTables = tableNamesFiltered.map((table) => (`DROP TABLE IF EXISTS ${table[dbName]};`))
                 const [responseDelete] = await pool.query(commandsToDeleteAllTables.join(' '));
             }
             const [clienteTable] = await pool.query(`CREATE TABLE IF NOT EXISTS ${data}cliente (idCliente INT NOT NULL, nombre VARCHAR(20) NULL, apellido VARCHAR(20) NULL, edad INT NOT NULL, ciudad VARCHAR(30) NULL)`);
@@ -39,11 +40,11 @@ export const initializeApp = async (req, res) => {
         const {data} = req.query;
         if(data){
             const [tableNames] = await pool.query('show tables');
-            const tableNamesFiltered = tableNames.filter((item) => item.Tables_in_railway.includes(data))
+            const tableNamesFiltered = tableNames.filter((item) => item[dbName].includes(data))
             console.log(tableNamesFiltered);
             const totalRows = tableNamesFiltered.map(async (table) => {
-                const [response] = await pool.query(`SELECT * FROM ${table.Tables_in_railway}`)
-                const tableNameAndRows = {name: table.Tables_in_railway, rows: response}
+                const [response] = await pool.query(`SELECT * FROM ${table[dbName]}`)
+                const tableNameAndRows = {name: table[dbName], rows: response}
                 return tableNameAndRows;
             })  
             const resolvedPromise =  await Promise.all(totalRows)
