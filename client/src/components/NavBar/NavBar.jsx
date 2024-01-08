@@ -39,7 +39,7 @@ export default function NavBar({ show }) {
           <Link to='/guide' onClick={() => setShowNav(false)}><span>Guía de comandos</span></Link>
         </li>
         <li>
-        { currentUser && <Link to='/course' onClick={() => setShowNav(false)}><span>Curso práctico</span></Link> }
+        { currentUser && <Link to='/course' onClick={() => setShowNav(false)}><span>Laboratorio</span></Link> }
         </li>
         <li>
           <Link to='/about'><span>Acerca de</span></Link>

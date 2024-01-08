@@ -32,7 +32,7 @@ export default function Course() {
 
 	const { showSaveQuery, showNav, setShowNav, arrayActivities, setArrayActivities } = useMainContext()
 	
-	const [uuid, setUuid] = useState(uuidv4().replaceAll('-', ''))
+	const [uuid, setUuid] = useState(`t${uuidv4().replaceAll('-', '')}`)
 
 	useEffect(() => {
 		setShowNav(false)
@@ -63,7 +63,7 @@ export default function Course() {
 		setLoading(true);
 		setRows([]);
 		setMessage({});
-		if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE')) {
+		if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')) {
 			setMessage({ data: 'Sentencia no permitida.', error: true })
 		} else {
 			const response = await handleExecuteQuery();

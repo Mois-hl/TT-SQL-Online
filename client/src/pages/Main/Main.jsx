@@ -50,6 +50,9 @@ export default function Main() {
       if (Array.isArray(response.data))
         if (response.data.length > 0){
           setRowsInit(response.data);
+          const tables = response.data.map((tables) => (` ${tables.name.replace(uuid, '')}`))
+          console.log(tables);
+          setTables(tables);
         }
     }
     init();
@@ -73,10 +76,23 @@ export default function Main() {
   //   setQuery(htmlCode)
   // }
 
+  //FLAGS REGEXP - A busqueda en toda la cadena, I no importa si es mayuscula o minuscula
+
    const handleExecuteQuery = async () => {
-    const tables = rowsInit.map((tables) => (` ${tables.name.replace(uuid, '')}`))
-    const regexTables = new RegExp(tables.join('|'), 'gi');
-    var newStatement = query.replace(regexTables, (match) => ` ${uuid}${match.substring(1, match.length)}`);
+    if(query.toUpperCase().includes('CREATE TABLE')){
+      const regexCreateTable = new RegExp('CREATE TABLE ', 'gi');
+      var newStatement = query.replace(regexCreateTable, (match) => `${match} ${uuid}`);
+      const statementArr = newStatement.split(' ');
+      const nameTableElement = statementArr.filter((item) => item.includes(uuid))
+      var nameTable = nameTableElement[0].replace(uuid, '')
+      if(nameTable.includes('('))
+        nameTable = nameTable.substring(0,nameTable.indexOf('('));
+      console.log(nameTable);
+      setTables([...tables, ` ${nameTable}`]);
+    }else{
+      const regexTables = new RegExp(tables.join('|'), 'gi');
+      var newStatement = query.replace(regexTables, (match) => ` ${uuid}${match.substring(1, match.length)}`);
+    }
     console.log(newStatement);
     const response = await executeQuery(newStatement);
     return response;
@@ -87,6 +103,7 @@ export default function Main() {
     setLoading(true);
     setRows([]);
     setMessage({});
+    console.log(tables);
     if (query.toUpperCase().includes('SHOW TABLES') || query.toUpperCase().includes('DATABASES') || query.toUpperCase().includes('DATABASE') || query.toUpperCase().includes('USE')) {
       setMessage({ data: 'Sentencia no permitida.', error: true })
     } else {
