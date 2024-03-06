@@ -1,7 +1,9 @@
 import axios from "axios"
 
+const baseUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:4000"
+
 export const resetApp = async (query) =>
-  await axios.get(import.meta.env.VITE_SERVER_URL+`/reset`, { params: {data: query}})
+  await axios.get(baseUrl+`/reset`, { params: {data: query}})
     .catch(function (error) {
       if (error.response) {
         console.log(error.response);
@@ -14,7 +16,7 @@ export const resetApp = async (query) =>
     })
 
 export const executeQuery = async (query) =>
-  await axios.get(import.meta.env.VITE_SERVER_URL+`/query`, { params: {data: query}})
+  await axios.get(baseUrl+`/query`, { params: {data: query}})
     .catch(function (error) {
       if (error.response) {
         return error.response.data
@@ -26,7 +28,7 @@ export const executeQuery = async (query) =>
     })
 
 export const initializeApp = async (query) =>
-  await axios.get(import.meta.env.VITE_SERVER_URL + `/init`)
+  await axios.get(baseUrl + `/init`, { params: {data: query}})
     .catch(function (error) {
       if (error.response) {
         console.log(error.response);
