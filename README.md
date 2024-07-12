@@ -49,3 +49,5 @@ Finally we have a section where we can do some practical exerices.
 
 
 <img src="./appImages/course.png">
+
+**credit: Moisés Hernández**
