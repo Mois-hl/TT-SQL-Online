@@ -65,7 +65,19 @@
         "activities": [
             {
                 "activity": "Selecciona los <span class='course-section-marktext' >registros que coincidan</span> de ambas tablas (selecciona unicamente idcliente, nombre, idorden y monto)",
-                "response": "3909919946449",
+                "response": "9841373399660",
+                "resolve": false,
+                "next": true
+            },
+            {
+                "activity": "Selecciona los <span class='course-section-marktext' >registros que coincidan</span> de ambas tablas (selecciona unicamente idcliente, nombre, idorden y monto)",
+                "response": "9841373399660",
+                "resolve": false,
+                "next": true
+            },
+            {
+                "activity": "Selecciona los <span class='course-section-marktext' >registros que coincidan</span> de ambas tablas (selecciona unicamente idcliente, nombre, idorden y monto)",
+                "response": "9841373399660",
                 "resolve": false,
                 "next": true
             }

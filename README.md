@@ -23,20 +23,29 @@ configuración adicional.
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
 
-# Funcionamineto 🧑‍💻
+# Application 🧑‍💻
 
 **Main Page**
 
 On the main page we can see de main textbox where we can write our SQL statements, we can also see the available tables in every moment and below we have the response of our statements.
 
+<img src="./appImages/main.png">
+
 **Saved Statementes**
 
 We can save any statement in our account and consult it at any time.
+
+<img src="./appImages/saved.png">
 
 **Command Guide Page**
 
 We have a page where we can consult the description, sintax and an example of the most used commands.
 
+<img src="./appImages/guide.png">
+
 **Practical Exercises**
 
 Finally we have a section where we can do some practical exerices.
+
+
+<img src="./appImages/course.png">
