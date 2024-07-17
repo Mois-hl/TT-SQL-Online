@@ -2,12 +2,12 @@
 
 # Resumen ✅
 
-Sistema capaz de ejecutar sentencias de SQL en línea. 
-El sistema consiste en una aplicación web con una interfaz de usuario sencilla donde escribiremos 
-las sentencias y las enviaremos mediante solicitudes HTTP a un servidor conectado a una base de 
-datos, en seguida, se observará la respuesta de la sentencia en la misma interfaz, sin la complicación 
-de instalar algún manejador de base de datos u otro tipo de aplicación y sin realizar ninguna 
-configuración adicional. 
+System able to execute SQL statements online. 
+The system consists of a web application with a simple user interface where we will write the statements and send them by HTTP requests to a server connected to a database,
+the response of the statement will be displayed in the same user interface, without the need to install a database handler 
+or other type of additional software and without any configuration.
+
+Translated with DeepL.com (free version)
 
 # Technologies used 🔧
 
