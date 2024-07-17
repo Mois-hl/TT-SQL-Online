@@ -7,8 +7,6 @@ The system consists of a web application with a simple user interface where we w
 the response of the statement will be displayed in the same user interface, without the need to install a database handler 
 or other type of additional software and without any configuration.
 
-Translated with DeepL.com (free version)
-
 # Technologies used 🔧
 
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
