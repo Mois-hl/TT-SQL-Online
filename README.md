@@ -1,4 +1,4 @@
-**SQL Learning Tool 💻**
+# **SQL Learning Tool 💻**
 
 # Summary ✅
 
