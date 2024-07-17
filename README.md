@@ -25,7 +25,7 @@ or other type of additional software and without any configuration.
 
 **Main Page**
 
-On the main page we can see de main textbox where we can write our SQL statements, we can also see the available tables in every moment and below we have the response of our statements.
+On the main page we can see the main text box where we can write our SQL statements, we can also see the available tables in every moment and below we have the response of our statements.
 
 <img src="./appImages/main.png">
 
