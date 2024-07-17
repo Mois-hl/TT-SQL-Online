@@ -1,6 +1,6 @@
-**Herramienta para el aprendizaje de SQL 💻**
+**SQL Learning Tool 💻**
 
-# Resumen ✅
+# Summary ✅
 
 System able to execute SQL statements online. 
 The system consists of a web application with a simple user interface where we will write the statements and send them by HTTP requests to a server connected to a database,
